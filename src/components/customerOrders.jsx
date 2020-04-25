@@ -1,60 +1,36 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import Table from './common/table';
 
 class CustomerOrders extends Component {
-    state = {}
+    state = {
+        customerItems: [
+            { orderId: 324342, customer: { id: 1, name: 'John Doe' }, sum: 4800, dueDate: '12.12.2019', status: 'Paid' },
+            { orderId: 324321, customer: { id: 2, name: 'Thomas Bayer' }, sum: 220, dueDate: '24.12.2021', status: 'Not paid' }
+        ],
+        columns: [
+            { name: 'Order ID' },
+            { name: 'Customer Name' },
+            { name: 'Sum' },
+            { name: 'Payment due date' },
+            { name: 'Status' }
+        ],
+        statusFilterTypes: [
+            { id: 1, name: 'Paid' },
+            { id: 2, name: 'Not paid' },
+            { id: 3, name: 'Overdue' },
+            { id: 4, name: 'Fulfilled' }
+        ]
+    }
     render() {
+        const { customerItems, columns, statusFilterTypes } = this.state;
         return (
             <div>
-                <nav className="navbar navbar-expand-lg">
-                    <div className=" navbar-collapse">
-                        <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-                            <select className="custom-select">
-                                <option selected>Filter by status</option>
-                                <option value="Overdue">Overdue</option>
-                                <option value="Paid">Paid</option>
-                                <option value="Fulfilled">Fulfilled</option>
-                                <option value="Paid">Paid</option>
-                            </select>
-                        </ul>
-                        <ul className="mr-sm-2">
-                            <input className="form-control " placeholder="Search"></input>
-                        </ul>
-                    </div>
-                </nav>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th >Order ID</th>
-                            <th >Customer Name</th>
-                            <th >Sum</th>
-                            <th >Payment due date</th>
-                            <th >Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th> <NavLink className="nav-item nav-link" to="/order-details">
-                                3435362
-                            </NavLink>
-                            </th>
-                            <td>John Doe</td>
-                            <td>$4,800.00</td>
-                            <td>12.12.2019</td>
-                            <td><span class="badge badge-success">Paid</span></td>
-                        </tr>
-                        <tr>
-                            <th>
-                                <NavLink className="nav-item nav-link" to="/order-details">
-                                    3435362                            </NavLink>
-                            </th>
-                            <td>Thomas Bayer</td>
-                            <td>$210.90</td>
-                            <td><span class="badge badge-danger">1d 12h overdue</span></td>
-                            <td><span class="badge badge-danger">Not paid</span></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <Table
+                    data={customerItems}
+                    selectFilter={statusFilterTypes}
+                    columns={columns}
+                ></Table>
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
                         <li class="page-item"><a class="page-link" href="#">Previous</a></li>
